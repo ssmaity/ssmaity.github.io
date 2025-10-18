@@ -1,40 +1,131 @@
-body
-{
-    height: 100%;
-    margin-top: 1em;
-    margin-buttom: 1em;
-    margin-right: 15%;
-    margin-left: 15%;
-    padding: 0;
-   font-family:Verdana,sans-serif;
-   font-size:100%;
+/* A reset and base styles for the body */
+        body {
+            margin: 0;
+            font-family: Verdana,sans-serif;;
+            background-color: #ffffff;
+            color: #333;
+        }
+
+        /* --- New Wrapper for the entire page content --- */
+        .page-wrapper {
+            max-width: 1000px; /* Adjust this value to your preferred width */
+            margin: 0 auto;
+            background-color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 0 20px; /* This is the key change! */
+        }
+        
+        /* --- Navigation Bar Container --- */
+        nav {
+            background-color: #ffffff;
+            /* Removed box-shadow */
+            padding: 0; /* Removed the padding here */
+        }
+        
+        /* The container for the nav items and title */
+        nav .nav-container {
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 60px;
+        }
+
+        /* --- Site Title on the left --- */
+        .site-title {
+            font-size: 25px;
+            font-weight: bold;
+            color: #1e40af;
+            text-decoration: none;
+        }
+
+        /* --- Main Navigation List --- */
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        /* --- List Items --- */
+        nav li {
+            margin: 0 5px;
+        }
+
+        /* --- The actual links/buttons --- */
+        nav a {
+            display: block;
+            padding: 10px 15px;
+            text-decoration: none;
+            color: #555;
+            font-size: 16px;
+            border-radius: 6px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* --- Hover Effect: Light blue background --- */
+        nav a:hover {
+            background-color: #e0f2fe;
+            color: #1e40af;
+        }
+        
+        /* --- Active Link: Bold text and a slight color change --- */
+        nav li.active a {
+            font-weight: normal;
+            color: #1e40af;
+        }
+
+        /* --- Main Content area style --- */
+        main {
+            flex-grow: 1;
+            padding: 20px 15px; /* Adjusted padding here */
+            line-height: 1.5;
+            background-color: #ffffff;
+        }
+
+.about-section {
+  display: flex;
+  align-items: center;    /* Center photo vertically relative to text */
+  gap: 30px;              /* Optional: space between text and photo */
+  margin-bottom: 40px;
 }
 
-.bottom-bar
-{
-    background-color:transparent;
-    color:black;
-    position:absolute;
-    right: 0;
-    bottom: 1em;
-    left: 0;
-    text-align:center;
-    padding:5px;
-    font-size: 0.5em;
-    margin-left: 15%;
-    margin-right: 15%;
+.about-text {
+  flex: 1 1 0;
 }
 
-h1,h2,h3 {font-family: Georgia,serif}
+.profile-photo-container {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;    /* Ensure photo remains centered in its container */
+}
 
-h1 {font-size: 1.6em}
+.profile-photo {
+  max-height: 250px;
+  width: auto;
+  border-radius: 12px;    /* Optional: rounded corners */
+}
 
-h2 {font-size: 1.4em}
 
-h3 {font-size: 1.2em}
 
-p,li {font-size: 1.0em; line-height: 150%}
+        h1,h2,h3 {
+            color: #2c3e50;
+        }
 
-a:link    {color:green; background-color:transparent; text-decoration:none}
-a:visited {color:green; background-color:transparent; text-decoration:none}
-a:hover   {color:blue; background-color:transparent; text-decoration:none}
+        /* Bottom bar (footer) styles */
+        footer {
+            text-align: center;
+            padding: 5px;
+            font-size: 0.8em;
+            margin-top: 20px;
+            color: #777;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #e0e0e0;
+            margin: 1em 0;
+        }
