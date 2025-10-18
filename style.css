@@ -111,21 +111,21 @@
 
 
 
-        h1,h2,h3 {
-            color: #2c3e50;
-        }
+h1,h2,h3 {
+    color: #2c3e50;
+}
 
-        /* Bottom bar (footer) styles */
-        footer {
-            text-align: center;
-            padding: 5px;
-            font-size: 0.8em;
-            margin-top: 20px;
-            color: #777;
-        }
+/* Bottom bar (footer) styles */
+    footer {
+        text-align: center;
+        padding: 5px;
+        font-size: 0.8em;
+        margin-top: 20px;
+        color: #777;
+    }
 
-        hr {
-            border: none;
-            border-top: 1px solid #e0e0e0;
-            margin: 1em 0;
-        }
+    hr {
+        border: none;
+        border-top: 1px solid #e0e0e0;
+        margin: 1em 0;    
+    }
