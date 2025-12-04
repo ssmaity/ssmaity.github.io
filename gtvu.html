@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World Clock Map</title>
+    
+    <!-- 1. Leaflet CSS Library (from the internet) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" 
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" 
+          crossorigin=""/>
+
+    <!-- 2. Custom CSS Styles -->
+    <style>
+        /* Make the base elements fill the entire screen */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            overflow: hidden; /* Hide scrollbars */
+            background-color: #a7c7e7; /* A light blue to fill empty space */
+        }
+
+        /* Set the map container to fill its parent (the body) */
+        #map {
+            height: 100%;
+            width: 100%;
+        }
+
+        /* Styling for the time display */
+        .local-time {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #333;
+            margin: 0;
+            font-family: 'Courier New', Courier, monospace;
+            background-color: rgba(255, 255, 255, 0.85); /* Semi-transparent white for readability */
+            padding: 4px 8px;
+            border-radius: 4px;
+            border: 1px solid #999;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        /* Custom class to remove default tooltip styling */
+        .city-tooltip {
+            background: transparent;
+            border: none;
+            box-shadow: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- The map container -->
+    <div id="map"></div>
+
+    <!-- 3. Leaflet JavaScript Library (from the internet) -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" 
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" 
+            crossorigin=""></script>
+
+    <!-- 4. Custom JavaScript Logic -->
+    <script>
+        // Initialize the map and set its view to a central point and zoom level
+        const map = L.map('map').setView([25, 20], 2.0);
+
+        // Add the map tiles from OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            noWrap: true, // Prevents the map from repeating
+            minZoom: 2.5   // Prevents zooming out too far
+        }).addTo(map);
+
+        // Set boundaries for the map to prevent excessive panning
+        const worldBounds = L.latLngBounds(L.latLng(-90, -180), L.latLng(90, 180));
+        map.setMaxBounds(worldBounds);
+
+
+        // Define the cities with their coordinates and IANA time zones
+        const cities = [
+            {
+                name: 'New York',
+                lat: 40.7128,
+                lon: -74.0060,
+                timeZone: 'America/New_York'
+            },
+            {
+                name: 'Sweden',
+                lat: 59.3293,
+                lon: 18.0686,
+                timeZone: 'Europe/Stockholm' // Central European Time
+            },
+            {
+                name: 'Finland',
+                lat: 60.1695,
+                lon: 24.9354,
+                timeZone: 'Europe/Helsinki' // Eastern European Time
+            },
+            {
+                name: 'New Delhi',
+                lat: 28.6139,
+                lon: 77.2090,
+                timeZone: 'Asia/Kolkata' // India Standard Time
+            },
+            {
+                name: 'Sydney',
+                lat: -33.8688,
+                lon: 151.2093,
+                timeZone: 'Australia/Sydney'
+            }
+        ];
+
+        // Function to get and format the local time for a specific time zone
+        function getLocalTime(timeZone) {
+            const date = new Date();
+            const options = {
+                timeZone: timeZone,
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: true
+            };
+            // Using 'en-GB' for a consistent format like 09:30:05 PM
+            return new Intl.DateTimeFormat('en-GB', options).format(date);
+        }
+
+        // Create markers and tooltips for each city
+        cities.forEach(city => {
+            const marker = L.marker([city.lat, city.lon]).addTo(map);
+
+            // Create a unique ID for the time element based on the city name
+            const timeId = `time-${city.name.replace(/\s+/g, '-')}`;
+
+            // Set the tooltip content to only show the time
+            const tooltipContent = `
+                <div class="local-time" id="${timeId}">
+                    Loading...
+                </div>
+            `;
+            
+            // Bind a permanent tooltip instead of a popup
+            marker.bindTooltip(tooltipContent, {
+                permanent: true,          // *** Makes the tooltip always visible ***
+                direction: 'top',         // Position of the tooltip relative to the marker
+                offset: [0, -10],         // Adjust position to be nicely above the marker
+                className: 'city-tooltip' // Custom class for styling
+            }).openTooltip();
+        });
+
+        // Function to update all visible clocks simultaneously
+        function updateAllClocks() {
+            cities.forEach(city => {
+                const timeId = `time-${city.name.replace(/\s+/g, '-')}`;
+                const timeElement = document.getElementById(timeId);
+                
+                // The element will always exist since the tooltips are permanent
+                if (timeElement) {
+                    timeElement.textContent = getLocalTime(city.timeZone);
+                }
+            });
+        }
+
+        // Update the clocks every second to keep them live
+        setInterval(updateAllClocks, 1000);
+
+    </script>
+</body>
+</html>
