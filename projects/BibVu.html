@@ -1,3 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BibVu: Sam's Reference Manager</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 40px; background: #f4f7f6; color: #333; }
+        .container { max-width: 1400px; margin: auto; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .header-row { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #3498db; padding-bottom: 10px; margin-bottom: 20px; }
+        h2 { color: #1a3a5f; margin: 0; }
+        #stats { font-size: 14px; color: #7f8c8d; font-weight: bold; }
+
+        .filters { display: flex; gap: 15px; margin-bottom: 25px; flex-wrap: wrap; align-items: center; }
+        input, select { padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; transition: border 0.3s; }
+        input:focus { border-color: #3498db; outline: none; }
+        input { flex-grow: 1; }
+
+        .btn-download {
+            background-color: #27ae60; color: white; border: none; padding: 10px 20px;
+            border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 14px; transition: background 0.3s;
+        }
+        .btn-download:hover { background-color: #219150; }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; table-layout: fixed; }
+        th { background: #1a3a5f; color: white; padding: 12px; text-align: left; cursor: pointer; font-size: 14px; position: relative; }
+        th:hover { background: #2c3e50; }
+
+        /* Sort Icons */
+        th::after { content: ' ⬘'; font-size: 10px; opacity: 0.3; }
+        th.asc::after { content: ' ▲'; opacity: 1; color: #3498db; }
+        th.desc::after { content: ' ▼'; opacity: 1; color: #3498db; }
+
+        td { padding: 12px; border-bottom: 1px solid #eee; font-size: 14px; vertical-align: top; word-wrap: break-word; }
+        tr:hover { background: #f9fcff; }
+
+        /* Column Widths */
+        .col-title { width: 40%; }
+        .col-author { width: 15%; }
+        .col-year { width: 8%; }
+        .col-journal { width: 22%; }
+        .col-key { width: 15%; }
+
+        .key-link { font-family: 'Courier New', monospace; font-weight: bold; color: #e67e22; text-decoration: none; border: 1px solid #e67e22; padding: 2px 6px; border-radius: 4px; display: inline-block; font-size: 12px; }
+        .key-link:hover { background: #e67e22; color: white; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header-row">
+        <h2>BibVu: Sam's Reference Manager</h2>
+        <div id="stats">Loading papers...</div>
+    </div>
+
+    <div class="filters">
+        <input type="text" id="srch" placeholder="Search Title, Author or Key..." onkeyup="doSearch()">
+        <select id="jFilt" onchange="doSearch()"><option value="">All Journals</option></select>
+        <select id="yFilt" onchange="doSearch()"><option value="">All Years</option></select>
+        <button class="btn-download" onclick="downloadBib()">Download Full .bib</button>
+    </div>
+
+    <table id="bt">
+        <thead>
+            <tr>
+                <th class="col-title" onclick="sortTable(0, this)">Title</th>
+                <th class="col-author" onclick="sortTable(1, this)">Author</th>
+                <th class="col-year" onclick="sortTable(2, this)">Year</th>
+                <th class="col-journal" onclick="sortTable(3, this)">Journal</th>
+                <th class="col-key" onclick="sortTable(4, this)">Citation Key</th>
+            </tr>
+        </thead>
+        <tbody id="tb"></tbody>
+    </table>
+</div>
+
 <script>
     let data = [];
     let rawBibText = "";
@@ -8,25 +83,26 @@
         const tbodyEl = document.getElementById('tb');
 
         try {
-            // 1. Updated URL with your username, repo, and 'master' branch
+            // Double-check: ssmaity (username) and BibVu (repository)
             const baseUrl = 'https://raw.githubusercontent.com/ssmaity/BibVu/master/updated_metadata.bib';
 
-            // 2. Added Cache-Buster (?t=...) to ensure the latest keys are fetched immediately
+            // This forces the browser to get the freshest data after your GitHub Action runs
             const repoFileUrl = `${baseUrl}?t=${new Date().getTime()}`;
 
-            statsEl.innerText = "Fetching latest papers...";
+            statsEl.innerText = "Fetching latest papers from GitHub...";
 
-            const res = await fetch(repoFileUrl);
+            const res = await fetch(repoFileUrl, {
+                mode: 'cors' // Critical for cross-repository fetching
+            });
 
             if (!res.ok) {
-                throw new Error(`HTTP ${res.status}: Could not find the file on the master branch.`);
+                throw new Error(`HTTP ${res.status}: Is the file really in the 'master' branch?`);
             }
 
             rawBibText = await res.text();
 
-            // Safety check for empty content
             if (!rawBibText.trim()) {
-                statsEl.innerText = "Library is currently empty.";
+                statsEl.innerText = "File found, but it appears to be empty.";
                 return;
             }
 
@@ -41,7 +117,6 @@
                         let [field, ...valParts] = line.split('=');
                         field = field.trim().toLowerCase();
                         let value = valParts.join('=').trim();
-                        // Clean BibTeX formatting for the UI
                         value = value.replace(/,$/, '').replace(/^[\{\"]/, '').replace(/[\}\"]$/, '').replace(/[\{\}]/g, '');
                         f[field] = value.trim();
                     }
@@ -57,7 +132,7 @@
                 };
             });
 
-            // Populate dropdowns
+            // Setup dropdowns
             const jf = document.getElementById('jFilt');
             const yf = document.getElementById('yFilt');
             jf.innerHTML = '<option value="">All Journals</option>';
@@ -68,9 +143,9 @@
 
             render(data);
         } catch (err) {
-            console.error("Fetch error:", err);
-            statsEl.innerText = "Error loading papers.";
-            tbodyEl.innerHTML = `<tr><td colspan='5' style="color:red; text-align:center;"><b>Error:</b> ${err.message}<br>Check if the 'master' branch contains updated_metadata.bib.</td></tr>`;
+            console.error("BibVu Error:", err);
+            statsEl.innerText = "Fetch failed.";
+            tbodyEl.innerHTML = `<tr><td colspan='5' style="color:red; text-align:center;"><b>Error:</b> ${err.message}</td></tr>`;
         }
     }
 
@@ -113,20 +188,24 @@
 
     function sortTable(n, el) {
         const map = ['title', 'author', 'year', 'journal', 'key'];
+
         if (sortConfig.index === n) {
             sortConfig.direction = sortConfig.direction === 'asc' ? 'desc' : 'asc';
         } else {
             sortConfig.index = n;
             sortConfig.direction = 'asc';
         }
+
         document.querySelectorAll('th').forEach(th => th.classList.remove('asc', 'desc'));
         el.classList.add(sortConfig.direction);
+
         data.sort((a, b) => {
             let valA = a[map[n]].toString().toLowerCase();
             let valB = b[map[n]].toString().toLowerCase();
             let comparison = valA.localeCompare(valB, undefined, {numeric: true});
             return sortConfig.direction === 'asc' ? comparison : -comparison;
         });
+
         doSearch();
     }
 
@@ -143,3 +222,5 @@
 
     init();
 </script>
+</body>
+</html>
