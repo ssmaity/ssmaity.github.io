@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>BibVu: Sam's Reference Manager</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 40px; background: #f4f7f6; color: #333; }
         .container { max-width: 1400px; margin: auto; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
@@ -15,17 +16,28 @@
         input:focus { border-color: #3498db; outline: none; }
         input { flex-grow: 1; }
 
-        .btn-download {
-            background-color: #27ae60; color: white; border: none; padding: 10px 20px;
-            border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 14px; transition: background 0.3s;
+        /* 2. Updated Icon Button Styling */
+        .btn-icon {
+            background-color: #27ae60; 
+            color: white; 
+            border: none; 
+            width: 42px; 
+            height: 42px;
+            border-radius: 6px; 
+            cursor: pointer; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px; 
+            transition: background 0.3s, transform 0.2s;
         }
-        .btn-download:hover { background-color: #219150; }
+        .btn-icon:hover { background-color: #219150; transform: scale(1.05); }
+        .btn-icon:active { transform: scale(0.95); }
 
         table { width: 100%; border-collapse: collapse; margin-top: 10px; table-layout: fixed; }
         th { background: #1a3a5f; color: white; padding: 12px; text-align: left; cursor: pointer; font-size: 14px; position: relative; }
         th:hover { background: #2c3e50; }
 
-        /* Sort Icons */
         th::after { content: ' ⬘'; font-size: 10px; opacity: 0.3; }
         th.asc::after { content: ' ▲'; opacity: 1; color: #3498db; }
         th.desc::after { content: ' ▼'; opacity: 1; color: #3498db; }
@@ -33,7 +45,6 @@
         td { padding: 12px; border-bottom: 1px solid #eee; font-size: 14px; vertical-align: top; word-wrap: break-word; }
         tr:hover { background: #f9fcff; }
 
-        /* Column Widths */
         .col-title { width: 40%; }
         .col-author { width: 15%; }
         .col-year { width: 8%; }
@@ -56,7 +67,9 @@
         <input type="text" id="srch" placeholder="Search Title, Author or Key..." onkeyup="doSearch()">
         <select id="jFilt" onchange="doSearch()"><option value="">All Journals</option></select>
         <select id="yFilt" onchange="doSearch()"><option value="">All Years</option></select>
-        <button class="btn-download" onclick="downloadBib()">Download Full .bib</button>
+        <button class="btn-icon" onclick="downloadBib()" title="Download Full .bib">
+            <i class="fa-solid fa-file-arrow-down"></i>
+        </button>
     </div>
 
     <table id="bt">
@@ -83,16 +96,13 @@
         const tbodyEl = document.getElementById('tb');
 
         try {
-            // Double-check: ssmaity (username) and BibVu (repository)
             const baseUrl = 'https://raw.githubusercontent.com/ssmaity/BibVu/master/updated_metadata.bib';
-
-            // This forces the browser to get the freshest data after your GitHub Action runs
             const repoFileUrl = `${baseUrl}?t=${new Date().getTime()}`;
 
             statsEl.innerText = "Fetching latest papers from GitHub...";
 
             const res = await fetch(repoFileUrl, {
-                mode: 'cors' // Critical for cross-repository fetching
+                mode: 'cors'
             });
 
             if (!res.ok) {
@@ -132,7 +142,6 @@
                 };
             });
 
-            // Setup dropdowns
             const jf = document.getElementById('jFilt');
             const yf = document.getElementById('yFilt');
             jf.innerHTML = '<option value="">All Journals</option>';
