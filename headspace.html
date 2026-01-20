@@ -3,8 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Webpage</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Headspace | Samriddhi Sankar Maity</title>
+    <link rel="stylesheet" href="../style.css">
+
+    <style>
+        /* Filter Chips Styling */
+        .filter-container {
+            margin: 2rem 0;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .chip {
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+            color: #333;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .chip:hover {
+            background-color: #e0e0e0;
+        }
+
+        .chip.active {
+            background-color: #333; /* Dark background for active state */
+            color: #fff;
+            border-color: #333;
+        }
+
+        /* Blog Card Styling */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 2rem;
+        }
+
+        .blog-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+            display: block; /* Default display */
+        }
+
+        .blog-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .blog-category {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #666;
+            margin-bottom: 8px;
+            display: inline-block;
+            background: #f0f0f0;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .blog-title {
+            margin: 0 0 10px 0;
+            font-size: 1.25rem;
+            color: #2c3e50;
+        }
+
+        .blog-summary {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .read-more {
+            text-decoration: none;
+            color: #007bff; /* Or your preferred link color */
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .read-more:hover {
+            text-decoration: underline;
+        }
+
+        /* Class to hide elements during filtering */
+        .hide {
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <div class="page-wrapper">
@@ -21,9 +116,65 @@
         </nav>
         <hr style="border: none; border-top: 2px solid #e0e0e0; margin: 0;">
 
-       <main>
-            <h3>Comming Soon!</h3>
-            <!--smaity@gsu.edu<br>-->
+        <main style="padding: 20px; max-width: 1000px; margin: 0 auto;">
+
+            <h3>Headspace</h3>
+            <p>Thoughts on Anything That Catches My Interest</p>
+
+            <div class="filter-container">
+                <button class="chip active" onclick="filterSelection('all')">All</button>
+                <button class="chip" onclick="filterSelection('coding')">Coding</button>
+                <button class="chip" onclick="filterSelection('pictures')">Pictures</button>
+                <button class="chip" onclick="filterSelection('credit-cards')">Credit Cards</button>
+            </div>
+
+            <div class="blog-grid">
+
+                <article class="blog-card" data-category="coding">
+                    <span class="blog-category">Coding</span>
+                    <h4 class="blog-title">Sample Blog Title</h4>
+                    <p class="blog-summary">
+                        Sample blog summary
+						Sample blog summary
+						Sample blog summary
+                    </p>
+                    <a href="https://medium.com/@yourusername/post-link" target="_blank" class="read-more">Read on Medium &rarr;</a>
+                </article>
+
+                <article class="blog-card" data-category="credit-cards">
+                    <span class="blog-category">Credit Cards</span>
+                    <h4 class="blog-title">Sample Blog Title</h4>
+                    <p class="blog-summary">
+                        Sample blog summary
+						Sample blog summary
+						Sample blog summary
+                    </p>
+                    <a href="https://notion.so/yourusername/post-link" target="_blank" class="read-more">Read on Notion &rarr;</a>
+                </article>
+
+                <article class="blog-card" data-category="pictures">
+                    <span class="blog-category">Pictures</span>
+                    <h4 class="blog-title">Sample Blog Title</h4>
+                    <p class="blog-summary">
+                        Sample blog summary
+						Sample blog summary
+						Sample blog summary
+                    </p>
+                    <a href="https://substack.com/@yourusername/post-link" target="_blank" class="read-more">View on Substack &rarr;</a>
+                </article>
+
+                 <article class="blog-card" data-category="coding">
+                    <span class="blog-category">Coding</span>
+                    <h4 class="blog-title">Sample Blog Title</h4>
+                    <p class="blog-summary">
+                        Sample blog summary
+						Sample blog summary
+						Sample blog summary
+                    </p>
+                    <a href="https://medium.com/@yourusername/post-link" target="_blank" class="read-more">Read on Medium &rarr;</a>
+                </article>
+
+            </div>
         </main>
 
         <footer>
@@ -33,5 +184,38 @@
         </footer>
 
     </div>
+
+    <script>
+        function filterSelection(category) {
+            var x, i;
+            x = document.getElementsByClassName("blog-card");
+
+            // Get all buttons and remove "active" class
+            var btns = document.getElementsByClassName("chip");
+            for (var b = 0; b < btns.length; b++) {
+                btns[b].classList.remove("active");
+                // Add active class to the button that was clicked
+                if(btns[b].innerText.toLowerCase().replace(' ', '-') === category ||
+                   (category === 'all' && btns[b].innerText === 'All')) {
+                    btns[b].classList.add("active");
+                }
+            }
+
+            // Loop through all cards
+            for (i = 0; i < x.length; i++) {
+                // Remove existing hide class
+                x[i].classList.remove("hide");
+
+                // If category is 'all', show everything.
+                // Otherwise, check if the data-category matches.
+                if (category !== "all") {
+                    if (x[i].getAttribute("data-category") !== category) {
+                        x[i].classList.add("hide");
+                    }
+                }
+            }
+
+        }
+    </script>
 </body>
 </html>
