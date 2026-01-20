@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Global Time - List View</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 40px; background: #f0f2f5; color: #333; }
+        .container { max-width: 800px; margin: auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        h2 { color: #1a3a5f; border-bottom: 2px solid #3498db; padding-bottom: 10px; margin-top: 0; }
+
+        .clock-list { margin-top: 20px; }
+        .city-row {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px; border-bottom: 1px solid #eee; transition: background 0.3s;
+        }
+        .city-row:hover { background: #f9fcff; }
+        .city-row:last-child { border-bottom: none; }
+
+        .city-info { display: flex; flex-direction: column; }
+        .city-name { font-size: 18px; font-weight: bold; color: #2c3e50; }
+        .city-date { font-size: 13px; color: #7f8c8d; margin-top: 4px; }
+
+        .city-time { font-family: 'Courier New', monospace; font-size: 24px; font-weight: bold; color: #2980b9; }
+
+        .utc-highlight { background: #fff5eb; border-left: 4px solid #e67e22; }
+        .utc-highlight .city-time { color: #e67e22; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>GlobalTime Tracker</h2>
+    <div class="clock-list" id="clockList">
+        </div>
+</div>
+
+<script>
+    const locations = [
+        { label: "UTC / Space Weather Time", zone: "UTC", css: "utc-highlight" },
+        { label: "Greenbelt, USA", zone: "America/New_York", css: "" },
+        { label: "Atlanta, USA", zone: "America/New_York", css: "" },
+        { label: "Bengaluru, India", zone: "Asia/Kolkata", css: "" },
+        { label: "Stockholm, Sweden", zone: "Europe/Stockholm", css: "" },
+		{ label: "Perth, Australia", zone: "Australia/Perth", css: "" },
+		{ label: "Berlin, Germany", zone: "Europe/Berlin", css: "" },
+		{ label: "Helsinki, Finland", zone: "Europe/Helsinki", css: "" },
+		{ label: "Sydney, Australia", zone: "Australia/Sydney", css: "" }
+
+
+    ];
+
+    function updateClocks() {
+        const container = document.getElementById('clockList');
+        const now = new Date();
+
+        const html = locations.map(loc => {
+            // Options for time
+            const timeOptions = {
+                timeZone: loc.zone,
+                hour12: true,
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            };
+
+            // Options for date
+            const dateOptions = {
+                timeZone: loc.zone,
+                weekday: 'short',
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            };
+
+            const timeStr = now.toLocaleTimeString('en-US', timeOptions);
+            const dateStr = now.toLocaleDateString('en-US', dateOptions);
+
+            return `
+                <div class="city-row ${loc.css}">
+                    <div class="city-info">
+                        <span class="city-name">${loc.label}</span>
+                        <span class="city-date">${dateStr}</span>
+                    </div>
+                    <div class="city-time">${timeStr}</div>
+                </div>
+            `;
+        }).join('');
+
+        container.innerHTML = html;
+    }
+
+    // Update every second
+    setInterval(updateClocks, 1000);
+    // Initial call
+    updateClocks();
+</script>
+
+</body>
+</html>
