@@ -1,131 +1,230 @@
 /* A reset and base styles for the body */
-        body {
-            margin: 0;
-            font-family: Verdana,sans-serif;;
-            background-color: #ffffff;
-            color: #333;
-        }
+body {
+    margin: 0;
+    font-family: Verdana, sans-serif;
+    background-color: #ffffff;
+    color: #333;
+}
 
-        /* --- New Wrapper for the entire page content --- */
-        .page-wrapper {
-            max-width: 1000px; /* Adjust this value to your preferred width */
-            margin: 0 auto;
-            background-color: #ffffff;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            padding: 0 20px; /* This is the key change! */
-        }
-        
-        /* --- Navigation Bar Container --- */
-        nav {
-            background-color: #ffffff;
-            /* Removed box-shadow */
-            padding: 0; /* Removed the padding here */
-        }
-        
-        /* The container for the nav items and title */
-        nav .nav-container {
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 60px;
-        }
+/* --- New Wrapper for the entire page content --- */
+.page-wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px;
+}
 
-        /* --- Site Title on the left --- */
-        .site-title {
-            font-size: 25px;
-            font-weight: bold;
-            color: #1e40af;
-            text-decoration: none;
-        }
+/* --- Navigation Bar Container --- */
+nav {
+    background-color: #ffffff;
+    padding: 0;
+}
 
-        /* --- Main Navigation List --- */
-        nav ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            align-items: center;
-        }
+/* The container for the nav items and title */
+nav .nav-container {
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+}
 
-        /* --- List Items --- */
-        nav li {
-            margin: 0 5px;
-        }
+/* --- Site Title on the left --- */
+.site-title {
+    font-size: 25px;
+    font-weight: bold;
+    color: #1e40af;
+    text-decoration: none;
+}
 
-        /* --- The actual links/buttons --- */
-        nav a {
-            display: block;
-            padding: 10px 15px;
-            text-decoration: none;
-            color: #555;
-            font-size: 16px;
-            border-radius: 6px;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
+/* --- Main Navigation List --- */
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
 
-        /* --- Hover Effect: Light blue background --- */
-        nav a:hover {
-            background-color: #e0f2fe;
-            color: #1e40af;
-        }
-        
-        /* --- Active Link: Bold text and a slight color change --- */
-        nav li.active a {
-            font-weight: normal;
-            color: #1e40af;
-        }
+/* --- List Items --- */
+nav li {
+    margin: 0 5px;
+}
 
-        /* --- Main Content area style --- */
-        main {
-            flex-grow: 1;
-            padding: 20px 15px; /* Adjusted padding here */
-            line-height: 1.5;
-            background-color: #ffffff;
-        }
+/* --- The actual links/buttons --- */
+nav a {
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #555;
+    font-size: 16px;
+    border-radius: 6px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* --- Hover Effect --- */
+nav a:hover {
+    background-color: #e0f2fe;
+    color: #1e40af;
+}
+
+/* --- Active Link --- */
+nav li.active a {
+    font-weight: normal;
+    color: #1e40af;
+}
+
+/* --- Main Content area style --- */
+main {
+    flex-grow: 1;
+    padding: 20px 15px;
+    line-height: 1.5;
+    background-color: #ffffff;
+}
 
 .about-section {
-  display: flex;
-  align-items: center;    /* Center photo vertically relative to text */
-  gap: 30px;              /* Optional: space between text and photo */
-  margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 40px;
 }
 
 .about-text {
-  flex: 1 1 0;
+    flex: 1 1 0;
 }
 
 .profile-photo-container {
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;    /* Ensure photo remains centered in its container */
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
 }
 
 .profile-photo {
-  max-height: 250px;
-  width: auto;
-  border-radius: 12px;    /* Optional: rounded corners */
+    max-height: 250px;
+    width: auto;
+    border-radius: 12px;
 }
 
-
-
-h1,h2,h3 {
+h1, h2, h3 {
     color: #2c3e50;
 }
 
 /* Bottom bar (footer) styles */
-    footer {
-        text-align: center;
-        padding: 5px;
-        font-size: 0.8em;
-        margin-top: 20px;
-        color: #777;
-    }
+footer {
+    text-align: center;
+    padding: 5px;
+    font-size: 0.8em;
+    margin-top: 20px;
+    color: #777;
+}
 
-    hr {
-        border: none;
-        border-top: 1px solid #e0e0e0;
-        margin: 1em 0;    
-    }
+hr {
+    border: none;
+    border-top: 1px solid #e0e0e0;
+    margin: 1em 0;
+}
+
+
+/* =========================================
+   HEADSPACE / BLOG SECTION STYLES
+   ========================================= */
+
+/* Filter Chips Container */
+.filter-container {
+    margin: 2rem 0;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* Individual Chip Buttons */
+.chip {
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    color: #333;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.chip:hover {
+    background-color: #e0e0e0;
+}
+
+.chip.active {
+    background-color: #333;
+    color: #fff;
+    border-color: #333;
+}
+
+/* Blog Grid Layout */
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 2rem;
+}
+
+/* THE BOXY STYLE (Cards) */
+.blog-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Soft shadow */
+    transition: transform 0.2s;
+    display: block;
+}
+
+.blog-card:hover {
+    transform: translateY(-3px); /* Pop up effect */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* Stronger shadow */
+}
+
+/* Category Tag inside the box */
+.blog-category {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #666;
+    margin-bottom: 8px;
+    display: inline-block;
+    background: #f0f0f0;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.blog-title {
+    margin: 0 0 10px 0;
+    font-size: 1.25rem;
+    color: #2c3e50;
+}
+
+.blog-summary {
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.read-more {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.read-more:hover {
+    text-decoration: underline;
+}
+
+/* Helper to hide cards when filtering */
+.hide {
+    display: none;
+}
