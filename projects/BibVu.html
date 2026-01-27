@@ -16,7 +16,6 @@
         input:focus { border-color: #3498db; outline: none; }
         input { flex-grow: 1; }
 
-        /* 2. Updated Icon Button Styling */
         .btn-icon {
             background-color: #27ae60; 
             color: white; 
@@ -91,6 +90,37 @@
     let rawBibText = "";
     let sortConfig = { index: -1, direction: 'asc' };
 
+    // Journal mapping based on your JournalAbbrev.list
+    const journalMap = {
+        "apj": "ApJ",
+        "the astrophysical journal": "ApJ",
+        "apjl": "ApJL",
+        "the astrophysical journal letters": "ApJL",
+        "apjs": "ApJS",
+        "the astrophysical journal supplement series": "ApJS",
+        "ana": "A&A",
+        "astronomy & astrophysics": "A&A",
+        "mnras": "MNRAS",
+        "monthly notices of the royal astronomical society": "MNRAS",
+        "solphys": "SolPhys",
+        "solar physics": "SolPhys",
+        "jgr": "JGR",
+        "jgrsp": "JGRSP",
+        "spacescirev": "SpaceSciRev",
+        "nature": "Nat",
+        "nature astronomy": "NatAstron",
+        "science": "Sci",
+        "science advances": "SciAdv",
+        "geophysreslett": "GeophysResLett",
+        "lrsp": "LRSP",
+        "aasj": "AASJ",
+        "pasj": "PASJ",
+        "angeo": "AnGeo",
+        "advspaceres": "AdvSpaceRes",
+        "spwea": "Space Weather",
+        "pop": "PoP"
+    };
+
     async function init() {
         const statsEl = document.getElementById('stats');
         const tbodyEl = document.getElementById('tb');
@@ -101,9 +131,7 @@
 
             statsEl.innerText = "Fetching latest papers from GitHub...";
 
-            const res = await fetch(repoFileUrl, {
-                mode: 'cors'
-            });
+            const res = await fetch(repoFileUrl, { mode: 'cors' });
 
             if (!res.ok) {
                 throw new Error(`HTTP ${res.status}: Is the file really in the 'master' branch?`);
@@ -127,17 +155,22 @@
                         let [field, ...valParts] = line.split('=');
                         field = field.trim().toLowerCase();
                         let value = valParts.join('=').trim();
-                        value = value.replace(/,$/, '').replace(/^[\{\"]/, '').replace(/[\}\"]$/, '').replace(/[\{\}]/g, '');
+                        // Strip braces, quotes, and LaTeX backslashes for clean processing
+                        value = value.replace(/,$/, '').replace(/^[\{\"]/, '').replace(/[\}\"]$/, '').replace(/[\{\}]/g, '').replace(/\\/g, '');
                         f[field] = value.trim();
                     }
                 });
+
+                // Standardize journal display using the map
+                const rawJournal = (f.journal || "Unknown").toLowerCase().trim();
+                const cleanJournal = journalMap[rawJournal] || f.journal || "Unknown";
 
                 return {
                     key: entryKey,
                     title: f.title || "Untitled",
                     author: f.author || "Unknown",
                     year: f.year || "N/A",
-                    journal: f.journal || "Unknown",
+                    journal: cleanJournal,
                     doi: f.doi || ""
                 };
             });
@@ -223,7 +256,7 @@
         const blob = new Blob([rawBibText], { type: 'text/plain' });
         const elem = window.document.createElement('a');
         elem.href = window.URL.createObjectURL(blob);
-        elem.download = "updated_metadata.bib";
+        elem.download = "references.bib";
         document.body.appendChild(elem);
         elem.click();
         document.body.removeChild(elem);
