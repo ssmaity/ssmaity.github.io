@@ -115,37 +115,63 @@
         "pop": "Physics of Plasmas"
     };
 
-    // ... inside init() where data is mapped ...
-    data = entries.map(e => {
-        const f = {};
-        const entryKey = e.split(',')[0].trim();
-        const lines = e.split('\n');
-        lines.forEach(line => {
-            if (line.includes('=')) {
-                let [field, ...valParts] = line.split('=');
-                field = field.trim().toLowerCase();
-                let value = valParts.join('=').trim();
-                // Strip braces, quotes, and backslashes
-                value = value.replace(/,$/, '').replace(/^[\{\"]/, '').replace(/[\}\"]$/, '').replace(/[\{\}]/g, '').replace(/\\/g, '');
-                f[field] = value.trim();
+    async function init() {
+        const statsEl = document.getElementById('stats');
+        const tbodyEl = document.getElementById('tb');
+
+        try {
+            // Updated URL to point to your GitHub master branch
+            const baseUrl = 'https://raw.githubusercontent.com/ssmaity/BibVu/master/references.bib';
+            const repoFileUrl = `${baseUrl}?t=${new Date().getTime()}`;
+
+            statsEl.innerText = "Fetching latest papers from GitHub...";
+
+            const res = await fetch(repoFileUrl, { mode: 'cors' });
+
+            if (!res.ok) {
+                throw new Error(`HTTP ${res.status}: Could not find references.bib`);
             }
-        });
 
-        // Normalize for lookup: turn \apj or ApJ into apj
-        const rawJournal = (f.journal || "Unknown").toLowerCase().trim();
-        
-        // Lookup the Full Name; if not found, use the original string
-        const cleanJournal = journalMap[rawJournal] || f.journal || "Unknown";
+            rawBibText = await res.text();
 
-        return {
-            key: entryKey,
-            title: f.title || "Untitled",
-            author: f.author || "Unknown",
-            year: f.year || "N/A",
-            journal: cleanJournal, 
-            doi: f.doi || ""
-        };
-    });
+            if (!rawBibText.trim()) {
+                statsEl.innerText = "File found, but it appears to be empty.";
+                return;
+            }
+
+            // Split into entries based on the BibTeX @ symbol
+            const entries = rawBibText.split(/@\w+\s*\{/).slice(1);
+
+            data = entries.map(e => {
+                const f = {};
+                const entryKey = e.split(',')[0].trim();
+                const lines = e.split('\n');
+                lines.forEach(line => {
+                    if (line.includes('=')) {
+                        let [field, ...valParts] = line.split('=');
+                        field = field.trim().toLowerCase();
+                        let value = valParts.join('=').trim();
+                        // Strip braces, quotes, and backslashes (handles \apj -> apj)
+                        value = value.replace(/,$/, '').replace(/^[\{\"]/, '').replace(/[\}\"]$/, '').replace(/[\{\}]/g, '').replace(/\\/g, '');
+                        f[field] = value.trim();
+                    }
+                });
+
+                // Normalize for lookup: turn ApJ or \apj into apj
+                const rawJournal = (f.journal || "Unknown").toLowerCase().trim();
+                
+                // Lookup the Full Name; if not found, use the original string
+                const cleanJournal = journalMap[rawJournal] || f.journal || "Unknown";
+
+                return {
+                    key: entryKey,
+                    title: f.title || "Untitled",
+                    author: f.author || "Unknown",
+                    year: f.year || "N/A",
+                    journal: cleanJournal, 
+                    doi: f.doi || ""
+                };
+            });
 
             const jf = document.getElementById('jFilt');
             const yf = document.getElementById('yFilt');
