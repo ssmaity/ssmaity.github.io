@@ -1,29 +1,88 @@
-/* A reset and base styles for the body */
+/* =========================================
+   1. CSS VARIABLES (THEME CONFIG)
+   ========================================= */
+:root {
+    /* Light Mode (Default) */
+    --bg-color: #ffffff;
+    --text-color: #333333;
+    --heading-color: #2c3e50;
+    --link-color: #1e40af;
+    --nav-bg: #ffffff;
+    --nav-hover: #e0f2fe;
+    --border-color: #e0e0e0;
+    --card-bg: #ffffff;
+    --card-shadow: rgba(0,0,0,0.05);
+    
+    /* Button Colors */
+    --button-bg: #333;
+    --button-text: #fff;
+    
+    /* Chip (Filter) Colors */
+    --chip-bg: #f9f9f9;
+    --chip-text: #333;
+    --chip-border: #ccc;
+    --chip-hover: #e0e0e0;
+    --chip-active-bg: #333;
+    --chip-active-text: #fff;
+}
+
+/* Dark Mode Overrides */
+body.dark-mode {
+    --bg-color: #121212;
+    --text-color: #e0e0e0;
+    --heading-color: #f3f4f6;
+    --link-color: #60a5fa; /* Lighter blue for better contrast */
+    --nav-bg: #121212;
+    --nav-hover: #1f2937;
+    --border-color: #374151;
+    --card-bg: #1e1e1e;
+    --card-shadow: rgba(0,0,0,0.5);
+    
+    /* Button Colors in Dark Mode */
+    --button-bg: #f3f4f6;
+    --button-text: #121212;
+
+    /* Chip Colors in Dark Mode */
+    --chip-bg: #2d2d2d;
+    --chip-text: #e0e0e0;
+    --chip-border: #444;
+    --chip-hover: #3d3d3d;
+    --chip-active-bg: #f3f4f6;
+    --chip-active-text: #121212;
+}
+
+/* =========================================
+   2. BASE STYLES
+   ========================================= */
 body {
     margin: 0;
     font-family: Verdana, sans-serif;
-    background-color: #ffffff;
-    color: #333;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* --- New Wrapper for the entire page content --- */
+/* New Wrapper for the entire page content */
 .page-wrapper {
     max-width: 1000px;
     margin: 0 auto;
-    background-color: #ffffff;
+    background-color: var(--bg-color);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     padding: 0 20px;
+    transition: background-color 0.3s ease;
 }
 
-/* --- Navigation Bar Container --- */
+/* =========================================
+   3. NAVIGATION
+   ========================================= */
 nav {
-    background-color: #ffffff;
+    background-color: var(--nav-bg);
     padding: 0;
+    transition: background-color 0.3s ease;
 }
 
-/* The container for the nav items and title */
 nav .nav-container {
     margin: 0 auto;
     display: flex;
@@ -32,15 +91,13 @@ nav .nav-container {
     height: 60px;
 }
 
-/* --- Site Title on the left --- */
 .site-title {
     font-size: 25px;
     font-weight: bold;
-    color: #1e40af;
+    color: var(--link-color);
     text-decoration: none;
 }
 
-/* --- Main Navigation List --- */
 nav ul {
     list-style-type: none;
     margin: 0;
@@ -49,40 +106,47 @@ nav ul {
     align-items: center;
 }
 
-/* --- List Items --- */
 nav li {
     margin: 0 5px;
 }
 
-/* --- The actual links/buttons --- */
 nav a {
     display: block;
     padding: 10px 15px;
     text-decoration: none;
-    color: #555;
+    color: var(--text-color);
     font-size: 16px;
     border-radius: 6px;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* --- Hover Effect --- */
 nav a:hover {
-    background-color: #e0f2fe;
-    color: #1e40af;
+    background-color: var(--nav-hover);
+    color: var(--link-color);
 }
 
-/* --- Active Link --- */
 nav li.active a {
     font-weight: normal;
-    color: #1e40af;
+    color: var(--link-color);
 }
 
-/* --- Main Content area style --- */
+/* =========================================
+   4. MAIN CONTENT
+   ========================================= */
 main {
     flex-grow: 1;
     padding: 20px 15px;
     line-height: 1.5;
-    background-color: #ffffff;
+    background-color: var(--bg-color);
+}
+
+h1, h2, h3, h4 {
+    color: var(--heading-color);
+}
+
+/* Links inside main text (excluding nav) */
+main a {
+    color: var(--link-color);
 }
 
 .about-section {
@@ -108,28 +172,23 @@ main {
     border-radius: 12px;
 }
 
-h1, h2, h3 {
-    color: #2c3e50;
+hr {
+    border: none;
+    border-top: 1px solid var(--border-color);
+    margin: 1em 0;
 }
 
-/* Bottom bar (footer) styles */
 footer {
     text-align: center;
     padding: 5px;
     font-size: 0.8em;
     margin-top: 20px;
-    color: #777;
+    color: var(--text-color);
+    opacity: 0.8;
 }
-
-hr {
-    border: none;
-    border-top: 1px solid #e0e0e0;
-    margin: 1em 0;
-}
-
 
 /* =========================================
-   HEADSPACE / BLOG SECTION STYLES
+   5. HEADSPACE / BLOG SECTION STYLES
    ========================================= */
 
 /* Filter Chips Container */
@@ -142,9 +201,9 @@ hr {
 
 /* Individual Chip Buttons */
 .chip {
-    border: 1px solid #ccc;
-    background-color: #f9f9f9;
-    color: #333;
+    border: 1px solid var(--chip-border);
+    background-color: var(--chip-bg);
+    color: var(--chip-text);
     padding: 8px 16px;
     border-radius: 20px;
     cursor: pointer;
@@ -154,13 +213,13 @@ hr {
 }
 
 .chip:hover {
-    background-color: #e0e0e0;
+    background-color: var(--chip-hover);
 }
 
 .chip.active {
-    background-color: #333;
-    color: #fff;
-    border-color: #333;
+    background-color: var(--chip-active-bg);
+    color: var(--chip-active-text);
+    border-color: var(--chip-active-bg);
 }
 
 /* Blog Grid Layout */
@@ -173,18 +232,18 @@ hr {
 
 /* THE BOXY STYLE (Cards) */
 .blog-card {
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--border-color);
     border-radius: 8px;
     padding: 20px;
-    background: #fff;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Soft shadow */
+    background: var(--card-bg);
+    box-shadow: 0 2px 5px var(--card-shadow);
     transition: transform 0.2s;
     display: block;
 }
 
 .blog-card:hover {
-    transform: translateY(-3px); /* Pop up effect */
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* Stronger shadow */
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
 /* Category Tag inside the box */
@@ -192,10 +251,11 @@ hr {
     font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: #666;
+    color: var(--text-color);
+    opacity: 0.7;
     margin-bottom: 8px;
     display: inline-block;
-    background: #f0f0f0;
+    background: var(--nav-hover); /* Reusing a light bg variable */
     padding: 2px 6px;
     border-radius: 4px;
 }
@@ -203,19 +263,19 @@ hr {
 .blog-title {
     margin: 0 0 10px 0;
     font-size: 1.25rem;
-    color: #2c3e50;
+    color: var(--heading-color);
 }
 
 .blog-summary {
     font-size: 0.95rem;
-    color: #555;
+    color: var(--text-color);
     line-height: 1.6;
     margin-bottom: 15px;
 }
 
 .read-more {
     text-decoration: none;
-    color: #007bff;
+    color: var(--link-color);
     font-weight: bold;
     font-size: 0.9rem;
 }
@@ -227,4 +287,30 @@ hr {
 /* Helper to hide cards when filtering */
 .hide {
     display: none;
+}
+
+/* =========================================
+   6. DARK MODE TOGGLE BUTTON
+   ========================================= */
+#theme-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, background-color 0.3s;
+    z-index: 1000;
+}
+
+#theme-toggle:hover {
+    transform: scale(1.1);
 }
