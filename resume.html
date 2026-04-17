@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume | Samriddhi Sankar Maity</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Header Flexbox Layout */
+        .resume-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .resume-header h2 {
+            margin: 0;
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        /* Button Styles */
+        .header-btn {
+            text-decoration: none;
+            color: var(--link-color);
+            background-color: var(--nav-hover);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .header-btn:hover {
+            background-color: var(--link-color);
+            color: white;
+        }
+
+        /* Resume Specific Layout */
+        .resume-section {
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--card-bg);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .resume-section:hover {
+            box-shadow: 0 4px 12px var(--card-shadow);
+        }
+
+        summary {
+            padding: 18px 25px;
+            background-color: var(--nav-hover);
+            color: var(--link-color);
+            font-weight: bold;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            outline: none;
+        }
+
+        summary::-webkit-details-marker { display: none; }
+
+        summary::after {
+            content: '\25BC';
+            font-size: 0.8rem;
+            transition: transform 0.3s ease;
+        }
+
+        details[open] summary::after { content: '\25B2'; }
+
+        .resume-content {
+            padding: 25px;
+            border-top: 1px solid var(--border-color);
+            line-height: 1.6;
+            background-color: var(--bg-color);
+        }
+
+        .resume-item {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .resume-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 5px;
+        }
+
+        .date-location {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            opacity: 0.7;
+            font-style: italic;
+        }
+
+        .skill-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .skill-tag {
+            background: var(--nav-hover);
+            color: var(--link-color);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <div class="resume-header">
+            <a href="index.html" class="header-btn"><i class="fas fa-arrow-left"></i> Back</a>
+            <h2>Curriculum Vitae</h2>
+            <a href="resources/SSMaity_CV_Oct_25.pdf" class="header-btn" download>
+                <i class="fas fa-download"></i>
+            </a>
+        </div>
+        
+        <hr style="border: none; border-top: 2px solid #e0e0e0; margin: 0;">
+
+        <main>
+            <details class="resume-section" open>
+                <summary>Experience</summary>
+                <div class="resume-content">
+                    <div class="resume-item">
+                        <div class="job-header">
+                            <strong>Postdoctoral Research Associate</strong>
+                            <span class="date-location">Oct 2025 – Present</span>
+                        </div>
+                        <div class="date-location">Georgia State University, Atlanta, GA, USA</div>
+                        <p>Focusing on the unusual expansion and propagation of Coronal Mass Ejections (CMEs) within the solar corona.</p>
+                    </div>
+                </div>
+                <div class="resume-content">
+                    <div class="resume-item">
+                        <div class="job-header">
+                            <strong>SCOSTEP Visiting Scholar</strong>
+                            <span class="date-location">Aug 2024 – Jan 2025</span>
+                        </div>
+                        <div class="date-location">NASA Goddard Space Flight Center, Greenbelt, MD, USA.</div>
+                        <p>Studied the change of twist of CME flux ropes from the solar atmosphere to the heliospehre.</p>
+                    </div>
+                </div>
+            </details>
+
+            <details class="resume-section">
+                <summary>Education</summary>
+                <div class="resume-content">
+                    <div class="resume-item">
+                        <div class="job-header">
+                            <strong>Ph.D. in Physics</strong>
+                            <span class="date-location">Completed on 2025</span>
+                        </div>
+                        <div class="date-location">Indian Institute of Science & Indian Institute of Astrophysics, Bengaluru, India</div>
+                            <p>Research focused on the origin and early evolution of solar eruptions in lower solar corona.</p>
+                    </div>
+                    <div class="resume-item">
+                        <div class="job-header">
+                            <strong>M.Sc. in Physics</strong>
+                            <span class="date-location">Completed on 2017</span>
+                        </div>
+                        <div class="date-location">St. Xavier's College (Autonomous, affiliated under The University of Calcutta), Kolkata, India</div>
+                            <p>Specialisation in Astroparticle Physics.</p>
+                    </div>
+                    <div class="resume-item">
+                        <div class="job-header">
+                            <strong>B.Sc. in Physics</strong>
+                            <span class="date-location">Completed on 2015</span>
+                        </div>
+                        <div class="date-location">Narasinha Dutt College (under The University of Calcutta), India</div>
+                    </div>
+                </div>
+            </details>
+
+            <details class="resume-section">
+                <summary>Skills</summary>
+                <div class="resume-content">
+                    <strong>Data Analysis & Modeling:</strong>
+                    <div class="skill-container">
+                        <span class="skill-tag">Python (Pandas, NumPy)</span>
+                        <span class="skill-tag">Magnetohydrodynamics (MHD)</span>
+                        <span class="skill-tag">Numerical Computation</span>
+                        <span class="skill-tag">Git Version Control</span>
+                    </div>
+                    <br>
+                    <strong>Web Development:</strong>
+                    <div class="skill-container">
+                        <span class="skill-tag">HTML5</span>
+                        <span class="skill-tag">CSS3 (Responsive Design)</span>
+                        <span class="skill-tag">JavaScript</span>
+                    </div>
+                </div>
+            </details>
+
+            <details class="resume-section">
+                <summary>Projects</summary>
+                <div class="resume-content">
+                    <div class="resume-item">
+                        <strong>Synthesis for 3D Hydro and Magnetohydrodynamic Simulations of Exo-planet host star surface layer</strong>
+                        <p>Developed a Python-based analysis tool for calculating tiered credit card rewards and milestone benefits.</p>
+                    </div>
+                    <div class="resume-item">
+                        <strong>Trajectory of a neutral particle around a binary black hole spacetime</strong>
+                        <p>Designing and deploying a professional researcher website using GitHub Pages.</p>
+                    </div>
+                </div>
+            </details>
+        </main>
+
+        <footer>
+            <hr>
+            <p>&copy; All rights reserved by Samriddhi Sankar Maity, 
+                <script>document.write(new Date().getFullYear())</script>.</p>
+        </footer>
+
+        <script src="script.js"></script>
+    </div>
+</body>
+</html>

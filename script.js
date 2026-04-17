@@ -1,13 +1,4 @@
-// 1. Auto-Update Year in Footer
-// This finds the element with id="year" and sets the current year
-document.addEventListener("DOMContentLoaded", function() {
-    const yearSpan = document.getElementById("year");
-    if (yearSpan) {
-        yearSpan.innerText = new Date().getFullYear();
-    }
-});
-
-// 2. Filter Function for Blog Chips
+// 1. Filter Function for Blog Chips
 function filterSelection(category) {
     var x, i;
     x = document.getElementsByClassName("blog-card");
@@ -18,7 +9,6 @@ function filterSelection(category) {
         btns[b].classList.remove("active");
 
         // Add active class to the button that was clicked
-        // We match the text content to the category
         if(btns[b].innerText.toLowerCase().replace(' ', '-') === category ||
            (category === 'all' && btns[b].innerText === 'All')) {
             btns[b].classList.add("active");
@@ -37,33 +27,10 @@ function filterSelection(category) {
     }
 }
 
-
 document.addEventListener("DOMContentLoaded", function() {
-    // 1. Existing Date Code
+    // 2. Auto-Update Year in Footer
     const yearSpan = document.getElementById("year");
     if (yearSpan) {
         yearSpan.innerText = new Date().getFullYear();
-    }
-
-    // 2. Theme Toggle Logic
-    const toggleButton = document.getElementById('theme-toggle');
-
-    // Check for saved user preference, if any, on load
-    const currentTheme = localStorage.getItem('theme');
-    if (currentTheme) {
-        document.body.classList.add(currentTheme);
-    }
-
-    if (toggleButton) {
-        toggleButton.addEventListener('click', function() {
-            document.body.classList.toggle('dark-mode');
-
-            // Save preference to Local Storage
-            let theme = 'light';
-            if (document.body.classList.contains('dark-mode')) {
-                theme = 'dark';
-            }
-            localStorage.setItem('theme', theme);
-        });
     }
 });
