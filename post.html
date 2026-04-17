@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research | S S Maity</title>
+    <link rel="stylesheet" href="style.css">
+
+    <!-- MathJax for LaTeX -->
+    <script>
+        MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+
+    <!-- marked.js for markdown rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"></script>
+
+    <style>
+        .post-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 2rem;
+        }
+
+        .post-nav-btn {
+            text-decoration: none;
+            color: var(--link-color);
+            background-color: var(--nav-hover);
+            padding: 7px 14px;
+            border-radius: 6px;
+            font-size: 0.88rem;
+            transition: all 0.25s ease;
+            border: 1px solid transparent;
+            white-space: nowrap;
+        }
+
+        .post-nav-btn:hover {
+            background-color: var(--link-color);
+            color: white;
+        }
+
+        .article-wrapper {
+            max-width: 780px;
+            margin: 0 auto;
+        }
+
+        /* Rendered markdown styles */
+        #post-content h1 {
+            font-size: 1.75rem;
+            line-height: 1.35;
+            color: var(--heading-color);
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 0.5rem;
+        }
+
+        #post-content h1 + em {
+            display: block;
+            font-style: italic;
+            color: var(--text-color);
+            opacity: 0.75;
+            font-size: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        #post-content h2 {
+            font-size: 1.3rem;
+            margin-top: 2.5rem;
+            margin-bottom: 0.75rem;
+            padding-bottom: 4px;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--heading-color);
+        }
+
+        #post-content h3 {
+            font-size: 1.1rem;
+            margin-top: 1.8rem;
+            color: var(--heading-color);
+        }
+
+        #post-content p {
+            line-height: 1.8;
+            margin-bottom: 1.1rem;
+        }
+
+        #post-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            display: block;
+            margin: 1.5rem auto 0.4rem;
+        }
+
+        /* Caption: italic paragraph right after an image paragraph */
+        #post-content img + br + em,
+        #post-content p:has(img) + p > em:only-child {
+            font-size: 0.85rem;
+            color: var(--text-color);
+            opacity: 0.75;
+            display: block;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+
+        #post-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        #post-content th {
+            background-color: var(--nav-hover);
+            color: var(--link-color);
+            padding: 10px 14px;
+            text-align: left;
+            border: 1px solid var(--border-color);
+        }
+
+        #post-content td {
+            padding: 9px 14px;
+            border: 1px solid var(--border-color);
+            vertical-align: top;
+        }
+
+        #post-content tr:nth-child(even) td {
+            background-color: #f9f9f9;
+        }
+
+        #post-content ul, #post-content ol {
+            padding-left: 1.6rem;
+            line-height: 1.8;
+        }
+
+        #post-content li {
+            margin-bottom: 0.4rem;
+        }
+
+        #post-content hr {
+            margin: 2.5rem 0;
+        }
+
+        #post-content blockquote {
+            border-left: 3px solid var(--border-color);
+            margin: 1.5rem 0;
+            padding: 0.5rem 1rem;
+            color: var(--text-color);
+            opacity: 0.8;
+            font-style: italic;
+        }
+
+        /* Loading / error states */
+        .post-loading {
+            text-align: center;
+            padding: 4rem 0;
+            color: var(--text-color);
+            opacity: 0.5;
+            font-style: italic;
+        }
+
+        .post-error {
+            text-align: center;
+            padding: 4rem 0;
+            color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+    <div class="post-nav">
+                    <a href="research_summary.html" class="post-nav-btn">← Research Summary</a>
+                    <a href="research_publication.html" class="post-nav-btn">Publications →</a>
+                </div>
+
+                <div id="post-content">
+                    <p class="post-loading">Loading post…</p>
+                </div>
+
+            </div>
+
+        <footer>
+            <hr>
+            <p>&copy; All rights reserved by Samriddhi Sankar Maity, <span id="year"></span>.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const params  = new URLSearchParams(window.location.search);
+            const mdPath  = params.get('post');
+            const container = document.getElementById('post-content');
+
+            if (!mdPath) {
+                container.innerHTML = '<p class="post-error">No post specified.</p>';
+                return;
+            }
+
+            fetch(mdPath)
+                .then(function(res) {
+                    if (!res.ok) throw new Error('Could not load "' + mdPath + '" (' + res.status + ')');
+                    return res.text();
+                })
+                .then(function(md) {
+                    // marked v9+ uses marked.parse() with no options deprecation warning
+                    container.innerHTML = marked.parse(md);
+
+                    // Fix image paths to be relative to the .md file's directory
+                    var mdDir = mdPath.substring(0, mdPath.lastIndexOf('/') + 1);
+                    container.querySelectorAll('img').forEach(function(img) {
+                        var src = img.getAttribute('src');
+                        if (src && !src.startsWith('http') && !src.startsWith('/')) {
+                            img.src = mdDir + src;
+                        }
+                    });
+
+                    // Update page title from first H1
+                    var h1 = container.querySelector('h1');
+                    if (h1) document.title = h1.textContent + ' | S S Maity';
+
+                    // Typeset MathJax — wait for it to be ready
+                    function runMathJax() {
+                        if (window.MathJax && MathJax.typesetPromise) {
+                            MathJax.typesetPromise([container]);
+                        } else {
+                            setTimeout(runMathJax, 200);
+                        }
+                    }
+                    runMathJax();
+                })
+                .catch(function(err) {
+                    container.innerHTML = '<p class="post-error">Failed to load post: ' + err.message + '</p>';
+                });
+        });
+    </script>
+</body>
+</html>

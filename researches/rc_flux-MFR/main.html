@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magnetic Reconnection & CMEs | S S Maity</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ── Article / Research post styles ── */
+        .article-wrapper {
+            max-width: 780px;
+            margin: 0 auto;
+        }
+
+        .article-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .article-header h1 {
+            font-size: 1.75rem;
+            line-height: 1.35;
+            margin-bottom: 0.5rem;
+            color: var(--heading-color);
+        }
+
+        .article-header .subtitle {
+            font-style: italic;
+            color: var(--text-color);
+            opacity: 0.75;
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        .article-body h2 {
+            font-size: 1.3rem;
+            margin-top: 2.5rem;
+            margin-bottom: 0.75rem;
+            padding-bottom: 4px;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--heading-color);
+        }
+
+        .article-body h3 {
+            font-size: 1.1rem;
+            margin-top: 1.8rem;
+            color: var(--heading-color);
+        }
+
+        .article-body p {
+            line-height: 1.8;
+            margin-bottom: 1.1rem;
+        }
+
+        /* Responsive figures */
+        .article-figure {
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .article-figure img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .article-figure figcaption {
+            font-size: 0.85rem;
+            color: var(--text-color);
+            opacity: 0.75;
+            margin-top: 0.6rem;
+            font-style: italic;
+            line-height: 1.5;
+            text-align: left;
+        }
+
+        /* Table */
+        .article-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        .article-body th {
+            background-color: var(--nav-hover);
+            color: var(--link-color);
+            padding: 10px 14px;
+            text-align: left;
+            border: 1px solid var(--border-color);
+        }
+
+        .article-body td {
+            padding: 9px 14px;
+            border: 1px solid var(--border-color);
+            vertical-align: top;
+        }
+
+        .article-body tr:nth-child(even) td {
+            background-color: #f9f9f9;
+        }
+
+        /* Bullet lists */
+        .article-body ul, .article-body ol {
+            padding-left: 1.6rem;
+            line-height: 1.8;
+        }
+
+        .article-body li {
+            margin-bottom: 0.4rem;
+        }
+
+        /* Inline code / numbers */
+        .article-body strong {
+            color: var(--heading-color);
+        }
+
+        /* Footer note */
+        .article-footer-note {
+            margin-top: 3rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: var(--text-color);
+            opacity: 0.75;
+            font-style: italic;
+            line-height: 1.7;
+        }
+
+        .article-footer-note a {
+            color: var(--link-color);
+        }
+
+        /* Back link */
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--link-color);
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <nav>
+            <div class="nav-container">
+                <a href="index.html" class="site-title">Samriddhi Sankar Maity</a>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li class="dropdown active">
+                        <a href="javascript:void(0)" class="dropbtn">Research</a>
+                        <div class="dropdown-content">
+                            <a href="research_interest.html">Interests</a>
+                            <a href="research_summary.html">Summary</a>
+                            <a href="research_publication.html">Publications</a>
+                        </div>
+                    </li>
+                    <li><a href="scribble.html">Scribble</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+        <hr style="border: none; border-top: 2px solid #e0e0e0; margin: 0;">
+
+        <main>
+            <div class="article-wrapper">
+
+                <a href="research_summary.html" class="back-link">← Back to Research Summary</a>
+
+                <header class="article-header">
+                    <h1>Unraveling the Sun's Explosive Secret: How Magnetic Reconnection Drives Coronal Mass Ejections</h1>
+                    <p class="subtitle">A deep dive into the magnetic choreography behind one of the solar system's most powerful phenomena</p>
+                </header>
+
+                <div class="article-body">
+
+                    <p>Every so often, the Sun hurls billions of tonnes of magnetized plasma into space at speeds exceeding a thousand kilometers per second. These events — <strong>coronal mass ejections</strong>, or CMEs — are not random outbursts. They are the culmination of a carefully orchestrated buildup of magnetic stress, a slow-burning fuse that eventually triggers one of nature's most dramatic explosions. Understanding precisely <em>how</em> and <em>when</em> that fuse ignites is one of the central unsolved problems in solar physics — and one with profound consequences for our increasingly technology-dependent civilization.</p>
+
+                    <p>Our new study, published in <em>The Astrophysical Journal</em> (Maity et al. 2026), takes a significant step toward answering that question by tracing the temporal evolution of <strong>magnetic reconnection flux</strong> during the full lifecycle of erupting magnetic flux ropes — from their quiet emergence through the solar corona to their explosive expulsion as CMEs.</p>
+
+                    <h2>The Magnetic Architecture of a CME</h2>
+
+                    <p>At the core of nearly every CME lies a <strong>magnetic flux rope (MFR)</strong>: a coherent bundle of helical magnetic field lines winding around a common axis. Whether MFRs exist in the corona <em>before</em> an eruption or are assembled <em>during</em> one remains a matter of active debate. What is generally agreed upon is that the MFR constitutes the primary magnetic skeleton of the ejected structure, and that <strong>magnetic reconnection (RC)</strong> — the topological restructuring of magnetic field lines accompanied by energy release — plays a pivotal role in its evolution.</p>
+
+                    <p>The quantity that most directly characterizes this reconnection process is the <strong>reconnection flux</strong>: the magnetic flux threading through the current sheet that forms beneath the rising flux rope. This is the magnetic fuel being processed during a solar flare, and it leaves observable signatures in the low solar atmosphere in the form of <strong>flare ribbons</strong> — bright ultraviolet and optical emission patches that sweep outward as newly reconnected field lines map their footpoints across the photosphere.</p>
+
+                    <p>Despite its importance, the <em>temporal evolution</em> of RC flux during the full arc of an eruption — from the slow pre-eruptive rise phase through the impulsive acceleration and into the post-eruptive decay — has never been comprehensively characterized in a physically self-consistent simulation. That is precisely the gap our work addresses.</p>
+
+                    <h2>A Physically Realistic 3D MHD Simulation</h2>
+
+                    <p>We solve the complete set of compressible MHD equations in 3D spherical coordinates using the <strong>Pencil Code</strong> — an open-source, MPI-parallelized, high-order finite difference code. Our computational domain spans a spherical wedge from <strong>1 to 6 solar radii</strong>, resolved on a <strong>512 × 288 × 160</strong> non-uniform grid. Critically, unlike many earlier eruption simulations, our model incorporates a suite of physical processes that bring it much closer to realistic coronal conditions:</p>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Physical Process</th>
+                                <th>Implementation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Optically thin radiative cooling</td>
+                                <td>Modified Cook et al. (1989) cooling function</td>
+                            </tr>
+                            <tr>
+                                <td>Explicit coronal heating</td>
+                                <td>Height-dependent exponential heating function</td>
+                            </tr>
+                            <tr>
+                                <td>Field-aligned thermal conduction</td>
+                                <td>Hyperbolic Spitzer diffusion approach</td>
+                            </tr>
+                            <tr>
+                                <td>High Alfvén speed handling</td>
+                                <td>Semirelativistic Boris correction</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <p>The initial corona is set up as a <strong>hydrostatic isothermal atmosphere at 10⁶ K</strong>, threaded by a potential arcade magnetic field. Into this configuration, we introduce a twisted toroidal flux rope through the lower coronal boundary via an imposed electromotive force, which bodily advects the torus upward at a sub-Alfvénic speed of <strong>2 km s⁻¹</strong>. This quasi-static emergence approach — following the methodology pioneered by Fan (2009, 2010, 2012) and Chatterjee &amp; Fan (2013) — ensures that the corona remains close to force-free equilibrium during the flux injection phase, preventing spurious numerical eruptions and guaranteeing that any instability that develops is of genuine physical origin (torus instability or helical kink instability).</p>
+
+                    <h2>Watching a Flux Rope Come Alive: The 3D Evolution</h2>
+
+                    <p>The simulation's most visually striking output is the 3D evolution of the coronal magnetic field as the flux rope emerges, rises, and eventually erupts. The figure below captures six key moments in this process.</p>
+
+                    <figure class="article-figure">
+                        <img src="researches/rc_flux-MFR/simulation_fig.jpg" alt="3D evolution of the magnetic field of the twisted flux rope emerging into the corona">
+                        <figcaption><strong>Figure 1:</strong> 3D evolution of the magnetic field of the twisted flux rope emerging into the corona at six timestamps. Red field lines belong to the ambient arcade; blue (core), green (middle), and cyan (periphery) field lines originate from the emerging flux rope at increasing distances from its axis. The flux rope first appears in the corona at t = 20.3 hr.</figcaption>
+                    </figure>
+
+                    <p>At <strong>t = 20.03 hr</strong>, the coronal field is dominated entirely by the large-scale ambient arcade — a clean, organized potential field. There is no sign yet of the eruption to come. By <strong>t = 26.64 hr</strong>, the emerging flux rope has pushed into the corona and begun compressing and stretching the overlying arcade field. The buildup of magnetic stress is visible in the distortion of the ambient field lines. At <strong>t = 28.10 hr</strong>, the first eruption is underway: the flux rope has broken free of the overlying field restraint, and a tangled ball of cyan, green, and blue field lines marks the ejected MFR core.</p>
+
+                    <p>The lower row captures the <em>reformation</em> phase and the second eruption cycle. By <strong>t = 32.08 hr</strong>, a new current channel has developed above the same polarity inversion line. At <strong>t = 33.15 hr</strong>, this new rope is rising quasi-statically, recapitulating the behavior of its predecessor. Finally, at <strong>t = 34.51 hr</strong>, the second eruption is in full swing — remarkably similar in morphology to the first, confirming the <strong>homologous</strong> character of the two events.</p>
+
+                    <h2>Two Homologous Eruptions and Their Energy Budget</h2>
+
+                    <p>Our simulation produces <strong>two successive homologous CME eruptions</strong>, triggered at <em>t</em> = 27.7 hr and <em>t</em> = 34.8 hr. The energetics of both events are summarized in the figure below.</p>
+
+                    <figure class="article-figure">
+                        <img src="researches/rc_flux-MFR/energetics.jpg" alt="Total kinetic and magnetic energy as a function of time">
+                        <figcaption><strong>Figure 3:</strong> Total kinetic energy E<sub>kin</sub> (red) and total magnetic energy E<sub>mag</sub> (blue) as a function of time. Each eruption appears as a sharp spike in kinetic energy accompanied by a corresponding drop in magnetic energy. The dashed vertical line marks the time when flux emergence stops.</figcaption>
+                    </figure>
+
+                    <p>The mechanism driving these homologous events is the continuous formation of new current sheets above the same <strong>polarity inversion line (PIL)</strong> following each eruption. As fresh twisted flux is driven through the lower boundary, a new sigmoid-shaped current layer develops beneath the rising rope. Reconnection within this layer adds flux to the rope, enabling a new quasi-static rise phase before the next loss of equilibrium.</p>
+
+                    <p>Each eruption is characterized by an impulsive spike in kinetic energy and a corresponding drop in magnetic energy — the canonical signature of an eruptive flare. Two distinct kinetic energy peaks are clearly visible, confirming the homologous nature of the events. The gradual decline in magnetic energy between eruptions reflects the ongoing reconnection that builds flux into the reforming rope. After flux emergence stops (dashed line), a second eruption cycle still completes — demonstrating that the stored free energy in the coronal field is sufficient to power the second CME without additional flux injection.</p>
+
+                    <h2>Kinematics of the Erupting Flux Rope</h2>
+
+                    <p>The height–time, velocity, and acceleration profiles of both eruptions are shown below, tracked by following the dark (cool) region in the meridional temperature plane — the observational proxy for the MFR core.</p>
+
+                    <h2>Quantifying the Reconnection Flux</h2>
+
+                    <p>The peak reconnection rates for the two eruptions are:</p>
+                    <ul>
+                        <li><strong>First eruption:</strong> 6.49 × 10¹⁷ Mx s⁻¹</li>
+                        <li><strong>Second eruption:</strong> 4.10 × 10¹⁷ Mx s⁻¹</li>
+                    </ul>
+                    <p>These values are consistent with observationally inferred reconnection rates for comparable M-class events.</p>
+
+                    <h2>The Central Finding: Reconnection Rate Tracks CME Acceleration</h2>
+
+                    <p>The most significant result of our study is quantified in the figure below, which shows the time evolution of the RC rate alongside scatter plots of RC rate versus MFR acceleration for both eruptions.</p>
+
+                    <figure class="article-figure">
+                        <img src="researches/rc_flux-MFR/correlation_fig.jpg" alt="Time evolution of RC rate and scatter plots of RC rate vs acceleration">
+                        <figcaption><strong>Figure 5:</strong> (a)–(b) Time evolution of the RC flux rate for the first (left) and second (right) eruptions. Red circles: pre-eruption; blue circles: post-eruption. (c)–(d) Scatter plots of RC rate vs. MFR radial acceleration. Red lines: linear fits before eruption; blue lines: after eruption. Pearson correlation coefficients (CC) and R² values are annotated.</figcaption>
+                    </figure>
+
+                    <p>Before the eruption, the scatter plots reveal a clear <strong>monotonic relationship between the RC rate and the CME acceleration</strong>, with Pearson correlation coefficients of <strong>CC = 0.58 (R² = 0.33)</strong> and <strong>CC = 0.81 (R² = 0.66)</strong> for the two eruptions respectively. After the eruption, the correlation weakens as the current sheet fragments and the magnetic topology becomes increasingly disordered — reflected in the lower post-eruption CC values.</p>
+
+                    <p>This relationship has a physically transparent interpretation. As the flux rope rises and compresses the overlying field, the current sheet beneath it intensifies, driving faster reconnection. The reconnected field lines form the growing flare arcade, whose magnetic pressure provides an upward push on the overlying rope — a <strong>positive feedback loop</strong> that progressively amplifies the eruption. The reconnection rate therefore serves as a real-time proxy for the rate at which magnetic free energy is being converted into kinetic energy of the ejecta.</p>
+
+                    <p>After the eruption, the RC rate decreases as the current sheet fragments and the magnetic topology becomes increasingly complex. The flux rope velocity itself begins to decline in the post-eruptive phase — a consequence of adiabatic expansion and magnetic cloud cooling — mirroring the deceleration profiles reported in observational studies such as Sarkar et al. (2019).</p>
+
+                    <h2>Observational Validation: The 2011 August 4 M-class Flare</h2>
+
+                    <p>To test whether this simulation-derived correlation has real-Sun counterparts, we analyze the well-observed eruptive M-class flare <strong>SOL2011-08-04T03:41</strong> in AR 11261. This event offers a rare geometric advantage:</p>
+                    <ul>
+                        <li><strong>On-disk view (SDO/HMI + AIA):</strong> The active region was located near solar disk center (30°–35° west), providing reliable line-of-sight magnetograms and AIA 1600 Å flare ribbon observations for RC flux estimation</li>
+                        <li><strong>Near-limb view (STEREO-A):</strong> Separated from the Sun–Earth line by 101°, enabling accurate height-time tracking of the CME leading edge with EUVI, COR1, and COR2</li>
+                    </ul>
+
+                    <h3>Multi-Spacecraft Observations</h3>
+
+                    <figure class="article-figure">
+                        <img src="researches/rc_flux-MFR/obs_fig.jpg" alt="Different phases of the CME eruption on 2011 August 04 as observed by STEREO-A">
+                        <figcaption><strong>Figure 6:</strong> Different phases of the 2011 August 04 CME eruption as observed by STEREO-A. (a) EUVI 171 Å base-difference image showing the early eruption at 03:38 UT. The inset shows the orbital configuration of STEREO-A (red), Earth (green), and STEREO-B (blue) on 2011 August 4, with STEREO-A at 101° separation. (b) COR1 base-difference image superimposed with EUVI 171 Å at 04:01 UT. (c) COR2 image at 04:29 UT showing the CME front well into the outer corona. Red arrows indicate the CME leading edge.</figcaption>
+                    </figure>
+
+                    <p>STEREO-A — separated from the Sun–Earth line by <strong>101°</strong> — observed this event as a near-limb CME, enabling accurate height-time tracking of the leading edge across three instruments: EUVI (&lt; 1.7 R☉), COR1 (1.3–4 R☉), and COR2. Meanwhile, the active region was located near solar disk center (30°–35° west) as seen from Earth, providing reliable line-of-sight magnetograms from SDO/HMI and flare ribbon observations from AIA 1600 Å.</p>
+
+                    <h3>Flare Ribbons and Reconnection Flux</h3>
+
+                    <figure class="article-figure">
+                        <img src="researches/rc_flux-MFR/obs_evolution.jpg" alt="AIA 1600 Å flare ribbons and HMI magnetogram showing temporal evolution of flare ribbons">
+                        <figcaption><strong>Figure 7:</strong> Left panel: flare brightening observed in AIA 1600 Å at 04:02:17 UT during the M-class flare in AR 11261. The characteristic two-ribbon morphology is clearly visible. Right panel: co-temporal HMI B<sub>r</sub> magnetogram (gray scale, saturated at ±500 G) overlaid with the temporal evolution of the flare ribbons from 03:41 to 04:17 UT on 2011 August 4. The color bar encodes time in minutes, showing the outward ribbon separation as reconnection proceeds.</figcaption>
+                    </figure>
+
+                    <p>The AIA 1600 Å image (left) captures the characteristic two-ribbon flare morphology — the photospheric footprints of the newly formed post-flare loops. The HMI overlay (right) maps these ribbons onto the underlying magnetic field, showing how they sweep outward across regions of opposite magnetic polarity over the course of ~36 minutes. This ribbon sweeping area, multiplied by the underlying magnetic field strength, gives the reconnection flux as a function of time.</p>
+
+                    <h3>Kinematics and Reconnection Flux: The Observed Correlation</h3>
+
+                    <figure class="article-figure">
+                        <img src="researches/rc_flux-MFR/obs_corr.jpg" alt="Observational RC flux profiles and CME kinematics">
+                        <figcaption><strong>Figure 8:</strong> (a) Signed cumulative RC flux integrated over positive (red) and negative (blue) magnetic polarities. (b) Unsigned instantaneous RC flux rate for positive (red) and negative (blue) polarities; black curve is the fitted profile. The cyan shaded region marks the period of peak acceleration. (c) Height–time plot of the CME leading edge from STEREO EUVI, COR1, and COR2. (d) CME speed (black) and acceleration (blue) profiles derived from panel (c).</figcaption>
+                    </figure>
+
+                    <p>The results are striking. The cumulative RC flux (panel a) reaches ~2 × 10²¹ Mx for the positive polarity — a value consistent with M-class flare reconnection budgets. The instantaneous RC flux rate (panel b) peaks near <strong>2.8 × 10²⁰ Mx s⁻¹</strong> around 03:50–04:00 UT, coinciding precisely with the period of peak CME acceleration (cyan shaded region in panels b and d). The CME reaches a peak speed of ~<strong>2100 km s⁻¹</strong> before gradually decelerating — a profile that closely mirrors the post-eruption deceleration seen in our simulation.</p>
+
+                    <p>The correlation coefficients between RC rate and CME acceleration for this observed event are <strong>CC = 0.90 (pre-eruption)</strong> and <strong>CC = 0.98 (post-eruption)</strong>. The simultaneous rise of RC flux and CME acceleration is fully consistent with the simulation's prediction of a positive pre-eruptive correlation. This finding aligns with the large statistical study by Zhu et al. (2020), who found correlation coefficients ranging from 0.68 to 0.99 across a sample of 60 CME–flare events.</p>
+
+                    <h2>Conclusion</h2>
+
+                    <p>The Sun continues to surprise us. But with each new simulation and each carefully analyzed event, the magnetic choreography behind its most spectacular eruptions becomes a little clearer. The monotonic link between <strong>reconnection rate and CME acceleration</strong> — seen consistently in both our 3D MHD simulations and in multi-spacecraft observational data — suggests that the seeds of a CME's explosive journey are already being sown during its quiet, pre-eruptive rise. Tracking those seeds in real time, through the sweeping footprints of flare ribbons, may one day be the key to forecasting the most dangerous solar storms before they reach Earth.</p>
+
+                    <div class="article-footer-note">
+                        <p>This research was supported by the Indo-US Science and Technology Forum (IUSSTF/JC-113/2019). Observational data were provided by NASA's SDO/HMI and AIA instruments and the STEREO spacecraft. Open access is funded by Helsinki University Library.</p>
+                        <p>Full paper: Maity, S. S., Chatterjee, P., Sarkar, R., &amp; Mytheen, I. S. 2026, The Astrophysical Journal, 1000, 315. DOI: <a href="https://doi.org/10.3847/1538-4357/ae3d9a">10.3847/1538-4357/ae3d9a</a></p>
+                    </div>
+
+                </div><!-- /.article-body -->
+            </div><!-- /.article-wrapper -->
+        </main>
+
+        <footer>
+            <hr>
+            <p>&copy; All rights reserved by Samriddhi Sankar Maity,
+                <script>document.write(new Date().getFullYear())</script>.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
