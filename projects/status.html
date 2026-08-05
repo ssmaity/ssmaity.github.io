@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home Monitor</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0f10;
+    --panel:#12181a;
+    --ink:#e8f0ee;
+    --muted:#6f817d;
+    --pulse:#4ee1a0;
+    --sleep:#7aa2ff;
+    --line:#1e2729;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    min-height:100vh;
+    background:radial-gradient(circle at 50% 0%,#141b1d,var(--bg));
+    color:var(--ink);
+    font-family:"Space Grotesk",sans-serif;
+    display:flex;align-items:center;justify-content:center;
+    padding:24px;
+  }
+  .card{
+    width:100%;max-width:480px;
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:36px 32px;
+  }
+  .eyebrow{
+    font-family:"IBM Plex Mono",monospace;
+    font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--muted);margin-bottom:28px;display:flex;justify-content:space-between;
+  }
+  .row{
+    display:flex;justify-content:space-between;align-items:baseline;
+    padding:16px 0;border-top:1px solid var(--line);
+  }
+  .label{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--muted);letter-spacing:.05em}
+  .value{font-size:20px;font-weight:500}
+  .clock{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+  .hr-block{padding:28px 0;border-top:1px solid var(--line);text-align:center}
+  .hr-num{
+    font-size:88px;font-weight:700;line-height:1;color:var(--pulse);
+    font-variant-numeric:tabular-nums;
+    display:inline-flex;align-items:baseline;gap:10px;
+    transition:transform .12s ease;
+  }
+  .hr-num.beat{transform:scale(1.06)}
+  .hr-unit{font-size:20px;color:var(--muted);font-weight:400}
+  .hr-cap{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-top:10px}
+  .heart{color:var(--pulse);animation:pump 1s infinite ease-in-out}
+  @keyframes pump{0%,100%{transform:scale(1)}20%{transform:scale(1.25)}40%{transform:scale(1)}}
+  .status .value{display:inline-flex;align-items:center;gap:8px}
+  .dot{width:9px;height:9px;border-radius:50%}
+  .awake .dot{background:var(--pulse);box-shadow:0 0 10px var(--pulse)}
+  .sleep .dot{background:var(--sleep);box-shadow:0 0 10px var(--sleep)}
+  .awake .value{color:var(--pulse)}
+  .sleep .value{color:var(--sleep)}
+  @media (prefers-reduced-motion:reduce){.heart,.hr-num{animation:none;transition:none}}
+</style>
+</head>
+<body>
+  <main class="card">
+    <div class="eyebrow"><span>Home Monitor</span><span id="tz">US · ET</span></div>
+
+    <div class="row">
+      <span class="label">Date</span>
+      <span class="value clock" id="date">—</span>
+    </div>
+    <div class="row">
+      <span class="label">Time</span>
+      <span class="value clock" id="time">—</span>
+    </div>
+    <div class="row">
+      <span class="label">Location</span>
+      <span class="value">Home</span>
+    </div>
+
+    <div class="hr-block">
+      <div class="hr-num" id="hr"><span class="heart">♥</span><span id="bpm">--</span><span class="hr-unit">bpm</span></div>
+      <div class="hr-cap">Heart Rate</div>
+    </div>
+
+    <div class="row status" id="status">
+      <span class="label">Status</span>
+      <span class="value"><span class="dot"></span><span id="statusText">—</span></span>
+    </div>
+  </main>
+
+<script>
+  const dateEl=document.getElementById('date');
+  const timeEl=document.getElementById('time');
+  const bpmEl=document.getElementById('bpm');
+  const hrEl=document.getElementById('hr');
+  const statusEl=document.getElementById('status');
+  const statusText=document.getElementById('statusText');
+
+  const TZ='America/New_York';
+  let awake=true;
+  let bpm=75;
+
+  function updateClock(){
+    const now=new Date();
+    dateEl.textContent=now.toLocaleDateString('en-US',{timeZone:TZ,weekday:'short',month:'short',day:'numeric',year:'numeric'});
+    timeEl.textContent=now.toLocaleTimeString('en-US',{timeZone:TZ,hour:'2-digit',minute:'2-digit',second:'2-digit'});
+
+    const hour=Number(new Intl.DateTimeFormat('en-US',{timeZone:TZ,hour:'numeric',hour12:false}).format(now))%24;
+    awake=hour>=7&&hour<23;
+    statusText.textContent=awake?'Awake':'Sleep';
+    statusEl.classList.toggle('awake',awake);
+    statusEl.classList.toggle('sleep',!awake);
+  }
+
+  function updateHeart(){
+    if(awake){
+      // drift by at most 5% of current value, staying within 60-180
+      const step=bpm*0.05;
+      bpm+=(Math.random()*2-1)*step;
+      bpm=Math.max(60,Math.min(180,bpm));
+    }else{
+      // sleep: settle into 70-75
+      const target=70+Math.random()*5;
+      bpm+=(target-bpm)*0.3;
+    }
+    bpmEl.textContent=Math.round(bpm);
+    hrEl.classList.add('beat');
+    setTimeout(()=>hrEl.classList.remove('beat'),120);
+  }
+
+  updateClock();updateHeart();
+  setInterval(updateClock,1000);
+  setInterval(updateHeart,1000);
+</script>
+</body>
+</html>
